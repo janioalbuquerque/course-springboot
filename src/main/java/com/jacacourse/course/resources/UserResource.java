@@ -5,6 +5,7 @@ import com.jacacourse.course.entities.User;
 import com.jacacourse.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +42,11 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void>  deleteUser(@PathVariable  Long id){
+        service.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
